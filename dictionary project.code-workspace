@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"path": "../../../Downloads/dictionary project"
+		},
+		{
+			"path": "../../../../../media/storage/Code"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Code",
+		"sqltools.connections": [
+			{
+				"ssh": "Disabled",
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 5432,
+				"askForPassword": true,
+				"driver": "PostgreSQL",
+				"name": "localhost ",
+				"database": "permalist",
+				"username": "postgres"
+			}
+		],
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}
