@@ -34,6 +34,11 @@ public class RegisterServlet extends HttpServlet {
             out.println("Year must be a number.");
             return;
         }
+        try {
+                Class.forName("org.postgresql.Driver");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException("PostgreSQL JDBC Driver not found", e);
+            }
 
         // Insert into DB
         try (Connection conn = DriverManager.getConnection(jdbcURL, dbUser, dbPassword)) {

@@ -25,6 +25,9 @@
 				"username": "postgres"
 			}
 		],
-		"java.configuration.updateBuildConfiguration": "interactive"
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"java.project.sourcePaths": [
+			""
+		]
 	}
 }

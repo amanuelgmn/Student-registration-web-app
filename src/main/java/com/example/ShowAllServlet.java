@@ -18,6 +18,12 @@ public class ShowAllServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<String[]> students = new ArrayList<>();
 
+        try {
+              Class.forName("org.postgresql.Driver");
+            } catch (ClassNotFoundException e) {
+                 throw new RuntimeException("PostgreSQL JDBC Driver not found", e);
+            }
+
         try (Connection conn = DriverManager.getConnection(jdbcURL, dbUser, dbPassword)) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT name, email, year FROM students");
