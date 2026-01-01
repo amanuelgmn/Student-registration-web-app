@@ -1,7 +1,6 @@
 # Student Registration Web Application
 
 A full Java-based web application for registering and managing student records using **Java Servlets**, **JSP**, **PostgreSQL**, and **Apache Tomcat 10**.  
-This project follows clean architecture principles and is suitable for academic, learning, and portfolio use.
 
 ---
 ## 📸 Screenshots
@@ -23,7 +22,6 @@ This application allows users to:
 - Ensure data integrity with server-side validation
 - Use a clean and responsive UI powered by Bootstrap
 
-The project is intentionally kept simple but **correctly structured**, focusing on **fundamentals done right**.
 
 ---
 
