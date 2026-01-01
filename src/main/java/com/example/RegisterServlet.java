@@ -8,8 +8,8 @@ import java.sql.*;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/studentdb";
-    private final String dbUser = "root";
+    private final String jdbcURL = "jdbc:postgresql://localhost:5432/studentdb";
+    private final String dbUser = "postgres";
     private final String dbPassword = "1234";
 
     @Override

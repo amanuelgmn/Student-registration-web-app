@@ -10,9 +10,9 @@ import java.util.List;
 @WebServlet("/show_all")
 public class ShowAllServlet extends HttpServlet {
 
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/studentdb";
-    private final String dbUser = "root";
-    private final String dbPassword = "YOUR_PASSWORD"; // replace with your root password
+    private final String jdbcURL = "jdbc:postgresql://localhost:5432/studentdb";
+    private final String dbUser = "postgres";
+    private final String dbPassword = "1234";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
