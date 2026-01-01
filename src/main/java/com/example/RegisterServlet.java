@@ -19,11 +19,9 @@ public class RegisterServlet extends HttpServlet {
         String yearStr = req.getParameter("year");
 
         resp.setContentType("text/html");
-        var out = resp.getWriter();
 
-        // Basic validation
         if (name.isEmpty() || email.isEmpty() || yearStr.isEmpty()) {
-            out.println("All fields are required.");
+            resp.sendRedirect("index.jsp?error=All+fields+required");
             return;
         }
 
@@ -31,32 +29,33 @@ public class RegisterServlet extends HttpServlet {
         try {
             year = Integer.parseInt(yearStr);
         } catch (NumberFormatException e) {
-            out.println("Year must be a number.");
+            resp.sendRedirect("index.jsp?error=Year+must+be+a+number");
             return;
         }
+
         try {
-                Class.forName("org.postgresql.Driver");
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException("PostgreSQL JDBC Driver not found", e);
+            Class.forName("org.postgresql.Driver");
+            try (Connection conn = DriverManager.getConnection(jdbcURL, dbUser, dbPassword)) {
+                String sql = "INSERT INTO students (name, email, year) VALUES (?, ?, ?)";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, name);
+                stmt.setString(2, email);
+                stmt.setInt(3, year);
+                stmt.executeUpdate();
             }
-
-        // Insert into DB
-        try (Connection conn = DriverManager.getConnection(jdbcURL, dbUser, dbPassword)) {
-            String sql = "INSERT INTO students (name, email, year) VALUES (?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setInt(3, year);
-            stmt.executeUpdate();
-
-            // Redirect to view all students
-            resp.sendRedirect("show_all");
         } catch (SQLException e) {
-            if (e.getMessage().contains("Duplicate")) {
-                out.println("Email already exists. <a href='index.jsp'>Go back</a>");
+            if (e.getMessage().contains("duplicate key")) {
+                resp.sendRedirect("index.jsp?error=Email+already+exists");
             } else {
-                out.println("Database error: " + e.getMessage());
+                resp.sendRedirect("index.jsp?error=Database+error");
             }
+            return;
+        } catch (ClassNotFoundException e) {
+            resp.sendRedirect("index.jsp?error=Driver+not+found");
+            return;
         }
+
+        // Redirect to show all students
+        resp.sendRedirect("show_all");
     }
 }

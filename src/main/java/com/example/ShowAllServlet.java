@@ -19,22 +19,19 @@ public class ShowAllServlet extends HttpServlet {
         List<String[]> students = new ArrayList<>();
 
         try {
-              Class.forName("org.postgresql.Driver");
-            } catch (ClassNotFoundException e) {
-                 throw new RuntimeException("PostgreSQL JDBC Driver not found", e);
+            Class.forName("org.postgresql.Driver");
+            try (Connection conn = DriverManager.getConnection(jdbcURL, dbUser, dbPassword)) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT name, email, year FROM students ORDER BY id DESC");
+                while (rs.next()) {
+                    students.add(new String[]{
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        String.valueOf(rs.getInt("year"))
+                    });
+                }
             }
-
-        try (Connection conn = DriverManager.getConnection(jdbcURL, dbUser, dbPassword)) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT name, email, year FROM students");
-            while (rs.next()) {
-                students.add(new String[]{
-                    rs.getString("name"),
-                    rs.getString("email"),
-                    String.valueOf(rs.getInt("year"))
-                });
-            }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             resp.getWriter().println("Database error: " + e.getMessage());
             return;
         }
