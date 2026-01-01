@@ -4,7 +4,15 @@ A full Java-based web application for registering and managing student records u
 This project follows clean architecture principles and is suitable for academic, learning, and portfolio use.
 
 ---
+## 📸 Screenshots
 
+### Student Registration Page
+![Student Registration Page](screenshots/registration_page.png)
+
+### View All Students Page
+![View All Students Page](screenshots/view_tables.png)
+
+---
 ## 📌 Overview
 
 This application allows users to:
