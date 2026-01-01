@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h2>Register Student</h2>
+    <h2>Student Registration WebApp</h2>
     <div class="container mt-5">
     <h2 class="mb-4">Register Student</h2>
 
@@ -37,6 +37,21 @@
 
     <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    const email = document.querySelector('input[name="email"]').value;
+    const year = document.querySelector('input[name="year"]').value;
+    if (!email.includes('@')) {
+        alert('Please enter a valid email.');
+        e.preventDefault();
+    }
+    if (year < 1 || year > 10) {
+        alert('Year must be between 1 and 10.');
+        e.preventDefault();
+    }
+});
+</script>
 
 </body>
 </html>
